@@ -4,6 +4,24 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import re
 from array import *
+from selenium import webdriver
+from selenium.common.exceptions import *
+
+driver = webdriver.Chrome("C:/Users/aryan/Downloads/chromedriver_win32 (2)/chromedriver.exe")
+from selenium.webdriver.common.keys import Keys
+import time
+#set chromodriver.exe path
+driver.implicitly_wait(0.5)
+#launch URL
+driver.get("https://www.google.com/")
+#identify search box
+m = driver.find_element_by_name("q")
+#enter search text
+s=input(print("enter match"))
+m.send_keys(s)
+time.sleep(0.2)
+#perform Google search with Keys.ENTER
+m.send_keys(Keys.ENTER)
 
 api_key = 'SeSHtUbPmmuKvzudEu0sCjwhE'
 api_key_secret = 'pNfT1G0W1c8Dm2fUYWGVFDHdImIQTXH9uUtcEWddQsXEY5ZlG0'
@@ -22,7 +40,7 @@ for i in range(2):
 
     search= f'#{a} -filter:retweets lang:en'
 
-    tweet_cursor = tweepy.Cursor(api.search_tweets, q=search, tweet_mode='extended').items(10)
+    tweet_cursor = tweepy.Cursor(api.search_tweets, q=search, tweet_mode='extended').items(15)
 
     tweets = [tweet.full_text for tweet in tweet_cursor]
 
@@ -45,7 +63,7 @@ for i in range(2):
 #    print(b)
     b.append(positive)
     print(positive)
-    print(negative)
+    #print(negative)
     langs = ['Positive', 'Negative']
     students = [positive,negative]
     a=plt.bar(langs,students)
@@ -58,10 +76,11 @@ for i in range(2):
     plt.legend
 
     plt.show()
-    print(i)
 
 if(b[0]>b[1]):
     print('player 1 is better')
 
 else:
     print('player 2 is better' )
+
+
