@@ -35,12 +35,12 @@ api = tweepy.API(authenticator, wait_on_rate_limit=True)
 
 
 b=array('i',[])
-for i in range(2):
+for i in range(3):
     a=input(print("enter player name"))
 
     search= f'#{a} -filter:retweets lang:en'
 
-    tweet_cursor = tweepy.Cursor(api.search_tweets, q=search, tweet_mode='extended').items(15)
+    tweet_cursor = tweepy.Cursor(api.search_tweets, q=search, tweet_mode='extended').items(100)
 
     tweets = [tweet.full_text for tweet in tweet_cursor]
 
@@ -64,6 +64,7 @@ for i in range(2):
     b.append(positive)
     print(positive)
     #print(negative)
+
     langs = ['Positive', 'Negative']
     students = [positive,negative]
     a=plt.bar(langs,students)
@@ -77,10 +78,42 @@ for i in range(2):
 
     plt.show()
 
-if(b[0]>b[1]):
-    print('player 1 is better')
+if (b[0] >= b[1]) and (b[0] >= b[2]):
+   largest = b[0]
+elif (b[1] >= b[0]) and (b[1] >=b[2]):
+   largest = b[1]
+else:
+   largest = b[2]
+
+if(largest==b[0]):
+    {
+        print('Player 1 is best')
+
+    }
+elif(largest==b[1]):
+    {
+        print('player 2 is th e best')
+
+    }
 
 else:
-    print('player 2 is better' )
+    {
+        print('player 3 is the best')
+
+    }
 
 
+# creating the dataset
+data = {'Player 1': b[0], 'Player 2': b[1], 'Player3': b[2]}
+courses = list(data.keys())
+values = list(data.values())
+
+fig = plt.figure(figsize=(10, 5))
+
+# creating the bar plot
+plt.bar(courses, values, color='green',
+        width=0.4)
+
+plt.ylabel("Positivity score")
+plt.title("Comparison of player fan sentiment")
+plt.show()
