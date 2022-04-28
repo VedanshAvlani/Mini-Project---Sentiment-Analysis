@@ -33,11 +33,11 @@ authenticator.set_access_token(access_token, access_token_secret)
 
 api = tweepy.API(authenticator, wait_on_rate_limit=True)
 
-
+c=[]
 b=array('i',[])
 for i in range(3):
     a=input(print("enter player name"))
-
+    c.append(a)
     search= f'#{a} -filter:retweets lang:en'
 
     tweet_cursor = tweepy.Cursor(api.search_tweets, q=search, tweet_mode='extended').items(100)
@@ -104,7 +104,7 @@ else:
 
 
 # creating the dataset
-data = {'Player 1': b[0], 'Player 2': b[1], 'Player3': b[2]}
+data = {c[0]: b[0], c[1]: b[1], c[2]: b[2]}
 courses = list(data.keys())
 values = list(data.values())
 
@@ -117,3 +117,4 @@ plt.bar(courses, values, color='green',
 plt.ylabel("Positivity score")
 plt.title("Comparison of player fan sentiment")
 plt.show()
+
